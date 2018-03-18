@@ -9,5 +9,5 @@ npm install jate-cli -g
 ```
 3. Go to the folder where you want to create the new project and run
 ```
-jate nome_progetto
+jate project_name
 ```
