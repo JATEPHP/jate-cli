@@ -2,7 +2,6 @@
 var program = require('commander');
 var chalk = require('chalk');
 var exec = require('child_process').exec;
-var copyfiles = require('copyfiles');
 var path = require('path');
 var ncp = require('ncp').ncp;
 var mkdirp = require('mkdirp');

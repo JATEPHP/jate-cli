@@ -2,7 +2,7 @@
 Command line interface for [JATE](https://github.com/XaBerr/JATE)
 
 ## Usage
-1. Install [npm](https://www.npmjs.com/)
+1. Install [npm](https://docs.npmjs.com/getting-started/installing-node)
 2. Execute the command
 ```
 npm install jate-cli -g
