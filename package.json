@@ -1,0 +1,28 @@
+{
+  "name": "jate-cli",
+  "version": "0.0.1",
+  "description": "Command line interface for JATE.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "jate",
+    "jate-framework",
+    "framework",
+    "php"
+  ],
+  "author": "Federico Berra <fede.berra@hotmail.it>",
+  "license": "MIT",
+  "bin": {
+    "jate": "./index.js"
+  },
+  "dependencies": {
+    "chalk": "^2.3.2",
+    "commander": "^2.15.0",
+    "exec": "^0.2.1",
+    "fs": "0.0.1-security",
+    "mkdirp": "^0.5.1",
+    "ncp": "^2.0.0"
+  }
+}
