@@ -9,7 +9,7 @@ var currentPath = process.cwd();
 var fs = require('fs');
 
 program
-.version('0.0.4', '-v, --version')
+.version('0.0.5', '-v, --version')
 .option('-p, --project <project>', 'The project folder name')
 .parse(process.argv);
 
