@@ -9,12 +9,14 @@ var currentPath = process.cwd();
 var fs = require('fs');
 
 program
-.version('0.0.1', '-v, --version')
-.arguments('<project>')
-.action(function(project) {
-  installWithProject(project);
-})
+.version('0.0.4', '-v, --version')
+.option('-p, --project <project>', 'The project folder name')
 .parse(process.argv);
+
+if(program.project != null)
+    installWithProject(program.project);
+if(program.project == null)
+  installLocal();
 
 function installWithProject(project) {
   console.log(chalk.green('PROJECT: '+currentPath+"/"+project));
@@ -44,6 +46,16 @@ function installWithProject(project) {
           });
         }
       });
+    }
+  });
+}
+
+function installLocal() {
+  exec('git clone https://github.com/XaBerr/JATE.git', function(err, out, code) {
+    if (err instanceof Error && err !== null) {
+      console.error(chalk.red(err.message));
+    } else {
+      console.log(chalk.green('Done!'));
     }
   });
 }
