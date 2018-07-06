@@ -12,6 +12,11 @@ program
 .version('0.0.1', '-v, --version')
 .arguments('<project>')
 .action(function(project) {
+  installWithProject(project);
+})
+.parse(process.argv);
+
+function installWithProject(project) {
   console.log(chalk.green('PROJECT: '+currentPath+"/"+project));
   if (fs.existsSync(currentPath+"/"+project)) {
     console.error(chalk.red("Project already exist."));
@@ -41,5 +46,4 @@ program
       });
     }
   });
-})
-.parse(process.argv);
+}
