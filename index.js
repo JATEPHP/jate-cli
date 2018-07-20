@@ -9,14 +9,14 @@ var currentPath = process.cwd();
 var fs = require('fs');
 
 program
-.version('0.0.5', '-v, --version')
+.version('0.0.6', '-v, --version')
 .option('-p, --project <project>', 'The project folder name')
+.option('-m, --modules', 'Load modules from JATE.json')
 .parse(process.argv);
 
-if(program.project != null)
-    installWithProject(program.project);
-if(program.project == null)
-  installLocal();
+if(program.project)      installWithProject(program.project);
+else if(program.modules) installModules();
+else                     installLocal();
 
 function installWithProject(project) {
   console.log(chalk.green('PROJECT: '+currentPath+"/"+project));
@@ -58,4 +58,21 @@ function installLocal() {
       console.log(chalk.green('Done!'));
     }
   });
+}
+
+function installModules() {
+  var module = 0;
+  var JATE = JSON.parse(fs.readFileSync('JATE.json', 'utf8'));
+  process.chdir(currentPath+"/modules");
+  console.log(chalk.green('STEP 1: Changed dir'));
+  for (var i = 0; i < JATE.modules.length; i++) {
+    exec('git clone '+JATE.modules[i], function(err, out, code, i, JATE) {
+      if (err instanceof Error && err !== null) {
+        console.error(chalk.red(err.message));
+      } else {
+        module++;
+        console.log(chalk.green('Downloaded module '+module));
+      }
+    });
+  }
 }
