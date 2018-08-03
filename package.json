@@ -1,6 +1,6 @@
 {
   "name": "jate-cli",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Command line interface for JATE.",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,7 @@
   "author": "Federico Berra <fede.berra@hotmail.it>",
   "license": "MIT",
   "bin": {
-    "jate": "./index.js"
+    "jate": "./jate.js"
   },
   "dependencies": {
     "chalk": "^2.3.2",
