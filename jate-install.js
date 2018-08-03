@@ -8,6 +8,7 @@ var ncp = require('ncp').ncp;
 var mkdirp = require('mkdirp');
 var currentPath = process.cwd();
 var fs = require('fs');
+var rimraf = require('rimraf');
 
 program
   .option('-p, --project <name>', 'create project with specific name')
@@ -163,13 +164,16 @@ function installReactWithProject(project) {
               console.error(chalk.red(err.message));
             } else {
               console.log(chalk.green('STEP 4: Init files'));
-              exec('git clone https://github.com/XaBerr/JATE.git', function(err, out, code) {
-                if (err instanceof Error && err !== null) {
-                  console.error(chalk.red(err.message));
-                } else {
-                  console.log(chalk.green('STEP 5: Downloaded JATE'));
-                  console.log(chalk.green('Done!'));
-                }
+              rimraf(currentPath+"/"+project+"/jate-react", function () {
+                console.log(chalk.green('STEP 5: Removed unused folder'));
+                exec('git clone https://github.com/XaBerr/JATE.git', function(err, out, code) {
+                  if (err instanceof Error && err !== null) {
+                    console.error(chalk.red(err.message));
+                  } else {
+                    console.log(chalk.green('STEP 6: Downloaded JATE'));
+                    console.log(chalk.green('Done!'));
+                  }
+                });
               });
             }
           });
@@ -190,13 +194,16 @@ function installReact() {
           console.error(chalk.red(err.message));
         } else {
           console.log(chalk.green('STEP 2: Init files'));
-          exec('git clone https://github.com/XaBerr/JATE.git', function(err, out, code) {
-            if (err instanceof Error && err !== null) {
-              console.error(chalk.red(err.message));
-            } else {
-              console.log(chalk.green('STEP 3: Downloaded JATE'));
-              console.log(chalk.green('Done!'));
-            }
+          rimraf(currentPath+"/jate-react", function () {
+            console.log(chalk.green('STEP 3: Removed unused folder'));
+            exec('git clone https://github.com/XaBerr/JATE.git', function(err, out, code) {
+              if (err instanceof Error && err !== null) {
+                console.error(chalk.red(err.message));
+              } else {
+                console.log(chalk.green('STEP 4: Downloaded JATE'));
+                console.log(chalk.green('Done!'));
+              }
+            });
           });
         }
       });

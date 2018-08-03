@@ -21,6 +21,12 @@ To install JATE example in `./`
 3. `jate install example -p projectName`<br>
 To install JATE example in `./projectName`
 
+3. `jate install react`<br>
+To install JATE + react example in `./`
+
+3. `jate install react -p projectName`<br>
+To install JATE + react example in `./projectName`
+
 4. `jate install modules`<br>
 To install modules in `./modules` from __JATE.json__
 
