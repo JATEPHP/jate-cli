@@ -15,10 +15,13 @@ To install JATE directly in `./`
 2. `jate install juice`<br>
 To install JUICE directly in `./`
 
-<!-- 2. `jate -p project_name`<br>
-To install JATE in `./project_name/JATE` -->
+3. `jate install example`<br>
+To install JATE example in `./`
 
-3. `jate install modules`<br>
+3. `jate install example -p projectName`<br>
+To install JATE example in `./projectName`
+
+4. `jate install modules`<br>
 To install modules in `./modules` from __JATE.json__
 
 ```json

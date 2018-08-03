@@ -10,7 +10,7 @@ var currentPath = process.cwd();
 var fs = require('fs');
 
 program
-  .option('-n, --name <name>', 'create with specific name')
+  .option('-p, --project <name>', 'create project with specific name')
   // .option('-f, --force', 'force installation')
   .parse(process.argv);
 
@@ -27,16 +27,22 @@ if (!pkgs.length) {
 pkgs.forEach(function(pkg) {
   console.log(chalk.green('Installing : %s'), pkg);
   switch (pkg) {
-    case 'modules': installModules(); break;
+    case 'modules': installModules();             break;
     case 'juice'  :
-    case 'JUICE'  : installGitRepo('JUICE');   break;
+    case 'JUICE'  : installGitRepo('JUICE');      break;
     case 'jate'   :
-    case 'JATE'   : installGitRepo('JATE');    break;
+    case 'JATE'   : installGitRepo('JATE');       break;
     case 'example':
-      if(program.name)
-        installExampleWithProject(program.name);
+      if(program.project !== undefined)
+        installExampleWithProject(program.project);
       else
         installExample();
+    break;
+    case 'react':
+      if(program.project !== undefined)
+        installReactWithProject(program.project);
+      else
+        installReact();
     break;
     default: console.error(chalk.red('Packages not found!')); break;
   }
@@ -44,7 +50,6 @@ pkgs.forEach(function(pkg) {
 
 
 // FUNCTIONS
-
 function installExampleWithProject(project) {
   console.log(chalk.green('PROJECT: '+currentPath+"/"+project));
   if (fs.existsSync(currentPath+"/"+project)) {
@@ -131,6 +136,70 @@ function installGitRepo( _repo ) {
       console.error(chalk.red(err.message));
     } else {
       console.log(chalk.green('Done!'));
+    }
+  });
+}
+
+function installReactWithProject(project) {
+  console.log(chalk.green('PROJECT: '+currentPath+"/"+project));
+  if (fs.existsSync(currentPath+"/"+project)) {
+    console.error(chalk.red("Project already exist."));
+    return;
+  }
+  mkdirp(currentPath+'/'+project, function (err) {
+    if (err instanceof Error && err !== null) {
+      console.error(chalk.red(err.message));
+    } else {
+      console.log(chalk.green('STEP 1: Created project folder'));
+      process.chdir(currentPath+"/"+project);
+      console.log(chalk.green('STEP 2: Changed dir'));
+      exec('git clone https://github.com/XaBerr/jate-react.git', function(err, out, code) {
+        if (err instanceof Error && err !== null) {
+          console.error(chalk.red(err.message));
+        } else {
+          console.log(chalk.green('STEP 3: Downloaded jate-react'));
+          ncp(currentPath+"/"+project+"/jate-react", currentPath+"/"+project, function (err) {
+            if (err instanceof Error && err !== null) {
+              console.error(chalk.red(err.message));
+            } else {
+              console.log(chalk.green('STEP 4: Init files'));
+              exec('git clone https://github.com/XaBerr/JATE.git', function(err, out, code) {
+                if (err instanceof Error && err !== null) {
+                  console.error(chalk.red(err.message));
+                } else {
+                  console.log(chalk.green('STEP 5: Downloaded JATE'));
+                  console.log(chalk.green('Done!'));
+                }
+              });
+            }
+          });
+        }
+      });
+    }
+  });
+}
+
+function installReact() {
+  exec('git clone https://github.com/XaBerr/jate-react.git', function(err, out, code) {
+    if (err instanceof Error && err !== null) {
+      console.error(chalk.red(err.message));
+    } else {
+      console.log(chalk.green('STEP 1: Downloaded jate-react'));
+      ncp(currentPath+"/jate-react", currentPath, function (err) {
+        if (err instanceof Error && err !== null) {
+          console.error(chalk.red(err.message));
+        } else {
+          console.log(chalk.green('STEP 2: Init files'));
+          exec('git clone https://github.com/XaBerr/JATE.git', function(err, out, code) {
+            if (err instanceof Error && err !== null) {
+              console.error(chalk.red(err.message));
+            } else {
+              console.log(chalk.green('STEP 3: Downloaded JATE'));
+              console.log(chalk.green('Done!'));
+            }
+          });
+        }
+      });
     }
   });
 }
