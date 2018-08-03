@@ -10,7 +10,7 @@ var currentPath = process.cwd();
 var fs = require('fs');
 
 program
-  .version('0.0.7', '-v, --version')
+  .version('0.0.8', '-v, --version')
   .description('Fake package manager')
   .command('install [name]', 'install one or more packages').alias('i')
   // .command('search [query]', 'search with optional query').alias('s')

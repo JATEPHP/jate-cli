@@ -10,7 +10,7 @@ var currentPath = process.cwd();
 var fs = require('fs');
 
 program
-  // .option('-d, --dir <folder>', 'create in subfolder')
+  .option('-n, --name <name>', 'create with specific name')
   // .option('-f, --force', 'force installation')
   .parse(process.argv);
 
@@ -32,15 +32,20 @@ pkgs.forEach(function(pkg) {
     case 'JUICE'  : installGitRepo('JUICE');   break;
     case 'jate'   :
     case 'JATE'   : installGitRepo('JATE');    break;
+    case 'example':
+      if(program.name)
+        installExampleWithProject(program.name);
+      else
+        installExample();
+    break;
     default: console.error(chalk.red('Packages not found!')); break;
-
   }
 });
 
 
 // FUNCTIONS
 
-function installWithProject(project) {
+function installExampleWithProject(project) {
   console.log(chalk.green('PROJECT: '+currentPath+"/"+project));
   if (fs.existsSync(currentPath+"/"+project)) {
     console.error(chalk.red("Project already exist."));
@@ -66,6 +71,24 @@ function installWithProject(project) {
               console.log(chalk.green('Done!'));
             }
           });
+        }
+      });
+    }
+  });
+}
+
+function installExample() {
+  exec('git clone https://github.com/XaBerr/JATE.git', function(err, out, code) {
+    if (err instanceof Error && err !== null) {
+      console.error(chalk.red(err.message));
+    } else {
+      console.log(chalk.green('STEP 1: Downloaded JATE'));
+      ncp(currentPath+"/JATE/examples/01essential", currentPath, function (err) {
+        if (err instanceof Error && err !== null) {
+          console.error(chalk.red(err.message));
+        } else {
+          console.log(chalk.green('STEP 2: Init files'));
+          console.log(chalk.green('Done!'));
         }
       });
     }
