@@ -18,16 +18,22 @@ To install JUICE directly in `./`
 3. `jate install example`<br>
 To install JATE example in `./`
 
-3. `jate install example -p projectName`<br>
+4. `jate install example -p projectName`<br>
 To install JATE example in `./projectName`
 
-3. `jate install react`<br>
+5. `jate install react`<br>
 To install JATE + react example in `./`
 
-3. `jate install react -p projectName`<br>
+6. `jate install react -p projectName`<br>
 To install JATE + react example in `./projectName`
 
-4. `jate install modules`<br>
+7. `jate install advance`<br>
+To install JATE + advance example in `./`
+
+8. `jate install advance -p projectName`<br>
+To install JATE + advance example in `./projectName`
+
+9. `jate install modules`<br>
 To install modules in `./modules` from __JATE.json__
 
 ```json

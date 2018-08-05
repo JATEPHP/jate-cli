@@ -1,6 +1,6 @@
 {
   "name": "jate-cli",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "description": "Command line interface for JATE.",
   "main": "index.js",
   "scripts": {

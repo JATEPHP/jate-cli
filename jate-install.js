@@ -41,9 +41,15 @@ pkgs.forEach(function(pkg) {
     break;
     case 'react':
       if(program.project !== undefined)
-        installReactWithProject(program.project);
+        installExternalExampleWithProject(program.project, 'jate-react');
       else
-        installReact();
+        installExternalExample('jate-react');
+    break;
+    case 'advance':
+      if(program.project !== undefined)
+        installExternalExampleWithProject(program.project, 'jate-advance');
+      else
+        installExternalExample('jate-advance');
     break;
     default: console.error(chalk.red('Packages not found!')); break;
   }
@@ -141,7 +147,7 @@ function installGitRepo( _repo ) {
   });
 }
 
-function installReactWithProject(project) {
+function installExternalExampleWithProject(project, example) {
   console.log(chalk.green('PROJECT: '+currentPath+"/"+project));
   if (fs.existsSync(currentPath+"/"+project)) {
     console.error(chalk.red("Project already exist."));
@@ -154,17 +160,17 @@ function installReactWithProject(project) {
       console.log(chalk.green('STEP 1: Created project folder'));
       process.chdir(currentPath+"/"+project);
       console.log(chalk.green('STEP 2: Changed dir'));
-      exec('git clone https://github.com/XaBerr/jate-react.git', function(err, out, code) {
+      exec('git clone https://github.com/XaBerr/'+example+'.git', function(err, out, code) {
         if (err instanceof Error && err !== null) {
           console.error(chalk.red(err.message));
         } else {
-          console.log(chalk.green('STEP 3: Downloaded jate-react'));
-          ncp(currentPath+"/"+project+"/jate-react", currentPath+"/"+project, function (err) {
+          console.log(chalk.green('STEP 3: Downloaded '+example));
+          ncp(currentPath+"/"+project+"/"+example, currentPath+"/"+project, function (err) {
             if (err instanceof Error && err !== null) {
               console.error(chalk.red(err.message));
             } else {
               console.log(chalk.green('STEP 4: Init files'));
-              rimraf(currentPath+"/"+project+"/jate-react", function () {
+              rimraf(currentPath+"/"+project+"/"+example, function () {
                 console.log(chalk.green('STEP 5: Removed unused folder'));
                 exec('git clone https://github.com/XaBerr/JATE.git', function(err, out, code) {
                   if (err instanceof Error && err !== null) {
@@ -183,18 +189,18 @@ function installReactWithProject(project) {
   });
 }
 
-function installReact() {
-  exec('git clone https://github.com/XaBerr/jate-react.git', function(err, out, code) {
+function installExternalExample(example) {
+  exec('git clone https://github.com/XaBerr/'+example+'t.git', function(err, out, code) {
     if (err instanceof Error && err !== null) {
       console.error(chalk.red(err.message));
     } else {
-      console.log(chalk.green('STEP 1: Downloaded jate-react'));
+      console.log(chalk.green('STEP 1: Downloaded '+example));
       ncp(currentPath+"/jate-react", currentPath, function (err) {
         if (err instanceof Error && err !== null) {
           console.error(chalk.red(err.message));
         } else {
           console.log(chalk.green('STEP 2: Init files'));
-          rimraf(currentPath+"/jate-react", function () {
+          rimraf(currentPath+"/"+example, function () {
             console.log(chalk.green('STEP 3: Removed unused folder'));
             exec('git clone https://github.com/XaBerr/JATE.git', function(err, out, code) {
               if (err instanceof Error && err !== null) {
